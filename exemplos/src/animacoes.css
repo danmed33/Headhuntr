@@ -1,0 +1,100 @@
+/* Cores da marca usadas abaixo. */
+:root { --color-h2-ink: #1a1a1a; }
+
+/* ---------- Home: entrance animations ----------
+   Hero: pure CSS, plays on first paint (no flash, works before the page script loads).
+   Other sections: [data-reveal] elements are hidden only after the page script marks the page
+   ready (.hh-reveal-ready) and come in when they scroll into view, so content never stays hidden
+   without JavaScript. */
+@keyframes hh-enter {
+  from { opacity: 0; transform: translate3d(0, 24px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hh-enter-zoom {
+  from { opacity: 0; transform: translate3d(0, 40px, 0) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hh-enter-left {
+  from { opacity: 0; transform: translate3d(-40px, 12px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hh-enter-right {
+  from { opacity: 0; transform: translate3d(40px, 12px, 0); }
+  to { opacity: 1; transform: none; }
+}
+/* Gentle drift: uses `translate`/`rotate`, so it never fights the entrance `transform`. */
+@keyframes hh-float {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -12px; rotate: 1deg; }
+}
+.hh-enter { animation: hh-enter 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both; }
+.hh-enter-zoom { animation: hh-enter-zoom 1s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both; }
+.hh-enter-left {
+  animation: hh-enter-left 1s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both,
+    hh-float 6.5s ease-in-out calc(var(--d, 0ms) + 1s) infinite;
+}
+.hh-enter-right {
+  animation: hh-enter-right 1s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both,
+    hh-float 7.5s ease-in-out calc(var(--d, 0ms) + 1.4s) infinite reverse;
+}
+.hh-enter-float {
+  animation: hh-enter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both,
+    hh-float 6.5s ease-in-out calc(var(--d, 0ms) + 1s) infinite;
+}
+
+.hh-reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 0.7s ease var(--d, 0ms), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms);
+}
+.hh-reveal-ready [data-reveal="left"] { transform: translate3d(-40px, 0, 0); }
+.hh-reveal-ready [data-reveal="right"] { transform: translate3d(40px, 0, 0); }
+.hh-reveal-ready [data-reveal="zoom"] { transform: translate3d(0, 32px, 0) scale(0.95); }
+.hh-reveal-ready [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Hero dashboard: assembles itself piece by piece when it is on screen ([data-build].is-in). */
+@keyframes hh-slide-left {
+  from { opacity: 0; transform: translate3d(-24px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hh-slide-right {
+  from { opacity: 0; transform: translate3d(24px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hh-pop-in {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: none; }
+}
+.hh-reveal-ready [data-build] [data-step] { opacity: 0; }
+.hh-reveal-ready [data-build].is-in [data-step] {
+  animation: hh-enter 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both;
+}
+.hh-reveal-ready [data-build].is-in [data-step="left"] { animation-name: hh-slide-left; }
+.hh-reveal-ready [data-build].is-in [data-step="right"] { animation-name: hh-slide-right; }
+.hh-reveal-ready [data-build].is-in [data-step="pop"] { animation-name: hh-pop-in; animation-duration: 0.5s; }
+.hh-reveal-ready [data-build].is-in [data-step="float"] {
+  animation: hh-enter 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both,
+    hh-float 6s ease-in-out calc(var(--d, 0ms) + 0.8s) infinite;
+}
+
+/* Light hover on the cards of "O relatório" and "Como funciona" (pointer devices only): the card
+   lifts a little and its hard shadow grows; the icon tilts. Uses `translate`, so it never fights
+   the entrance `transform`. */
+.hh-hover { transition: translate 0.25s ease, box-shadow 0.25s ease; }
+.hh-reveal-ready [data-reveal].hh-hover {
+  transition: opacity 0.7s ease var(--d, 0ms), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms),
+    translate 0.25s ease 0s, box-shadow 0.25s ease 0s;
+}
+.hh-hover .hh-hover-icon { transition: rotate 0.25s ease, scale 0.25s ease; }
+@media (hover: hover) {
+  .hh-hover:hover { translate: -3px -4px; box-shadow: 9px 10px 0 0 var(--color-h2-ink); }
+  .hh-hover:hover .hh-hover-icon { rotate: -8deg; scale: 1.08; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hh-enter, .hh-enter-zoom, .hh-enter-left, .hh-enter-right, .hh-enter-float { animation: none; }
+  .hh-reveal-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .hh-reveal-ready [data-build] [data-step] { opacity: 1; animation: none !important; }
+  .hh-hover:hover, .hh-hover:hover .hh-hover-icon { translate: none; rotate: none; scale: none; }
+}

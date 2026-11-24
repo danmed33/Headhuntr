@@ -1,0 +1,15 @@
+{
+  "name": "headhuntr-exemplos",
+  "private": true,
+  "type": "module",
+  "description": "Trechos do código do HEADHUNTR, para leitura. O projeto completo é privado.",
+  "scripts": {
+    "test": "tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

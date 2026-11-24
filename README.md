@@ -13,7 +13,11 @@
   <a href="https://headhuntr-v1.lovable.app"><img alt="Ver o site" src="https://img.shields.io/badge/ver_o_site-headhuntr--v1.lovable.app-2b5bff?style=for-the-badge&labelColor=1a1a1a"></a>
 </p>
 
-<p align="center"><sub>Esta é a vitrine pública do projeto. O código-fonte é privado.</sub></p>
+<p align="center">
+  <a href="https://github.com/danmed33/headhuntr/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/danmed33/headhuntr/actions/workflows/ci.yml/badge.svg"></a>
+</p>
+
+<p align="center"><sub>Esta é a vitrine pública do projeto. O código-fonte é privado; alguns trechos estão em <a href="exemplos">exemplos/</a>.</sub></p>
 
 ---
 
@@ -91,7 +95,11 @@ flowchart LR
 - **Variedade no relatório.** No máximo uma vaga por empresa e poucas por fonte, salvo quando faltam vagas boas.
 - **Respeitar o que o usuário marcou.** Quem escolheu Rio de Janeiro recebe vagas do Rio ou remotas, nada além disso.
 - **Transparência quando há poucas vagas.** Em dias fracos, as vagas quase aprovadas aparecem no fim, sinalizadas como de menor aderência.
-- **Testar antes de ligar.** Toda mudança de regra passa antes por um laboratório com perfis de teste, e só depois vale para os usuários.
+- **Testar antes de ligar.** Toda mudança de regra passa antes por um laboratório com perfis de teste, e cada mudança de código passa por mais de 200 testes automáticos antes de ir para o ar.
+
+## Trechos do código
+
+O projeto é privado, mas uma amostra está em [`exemplos/`](exemplos): as regras que montam o relatório, o reconhecimento do nome das empresas, o nível do perfil e as animações da home, com os testes automáticos que rodam a cada mudança.
 
 ## Construído com
 
